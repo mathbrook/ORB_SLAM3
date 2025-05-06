@@ -31,9 +31,9 @@ ENDIF()
 # Add local path for finding packages, set the local version first
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules")
 
-# Find Eigen 3 (dependency)
+ # Find Eigen 3 (dependency)
+add_definitions(-DEIGEN_DONT_ALIGN) #here 
 find_package(Eigen3 3.3.0 REQUIRED)
-
 # Define interface library target
 add_library(sophus INTERFACE)
 
