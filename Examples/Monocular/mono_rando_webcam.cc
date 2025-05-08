@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <chrono>
+#include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <System.h>
 
@@ -15,15 +16,15 @@ void exit_loop_handler(int s) {
 }
 
 int main(int argc, char **argv) {
-    if (argc < 3 || argc > 4) {
-        cerr << endl << "Usage: ./mono_webcam path_to_vocabulary path_to_settings (trajectory_file_name)" << endl;
+    if (argc < 4 || argc > 5) {
+        cerr << endl << "Usage: ./mono_webcam path_to_vocabulary path_to_settings camera_index  (trajectory_file_name)" << endl;
         return 1;
     }
 
     string file_name;
     bool bFileName = false;
-    if (argc == 4) {
-        file_name = string(argv[3]);
+    if (argc == 5) {
+        file_name = string(argv[4]);
         bFileName = true;
     }
 
@@ -35,7 +36,7 @@ int main(int argc, char **argv) {
     b_continue_session = true;
 
     // Open webcam
-    cv::VideoCapture cap(0); // Default camera ID
+    cv::VideoCapture cap(std::stoi(argv[3])); // Default camera ID
     if (!cap.isOpened()) {
         cerr << "ERROR: Could not open webcam" << endl;
         return -1;
